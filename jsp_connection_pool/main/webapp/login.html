@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Log In</title>
+</head>
+<body>
+	<form action="login" method="post" name="formLogin">
+		<table>
+			<tr>
+				<td>id</td>
+				<td><input name="id" autocomplete="username"></td>
+			</tr>
+			<tr>
+				<td>password</td>
+				<td><input type="password" name="password" autocomplete="current-password"></td>
+			</tr>
+			<tr>
+				<td>Favorite Style</td>
+			</tr>
+			<tr>
+				<td colspan=2>
+				<input type="checkbox" name="favorite" value="finger-style" checked>Finger Style
+				<input type="checkbox" name="favorite" value="slap">Slapp
+				<input type="checkbox" name="favorite" value="tapping">Tapping
+				<input type="checkbox" name="favorite" value="percussive">Percussive
+				</td>
+			</tr>
+			<tr>
+				<td colspan=2>
+				<input type="button" value="login" onClick="validateForm()">
+				<input type="reset" value="clear">
+				<input type="hidden" name="attitude" value="You bass now">				
+				</td>				
+			</tr>
+
+		</table>
+
+	</form>
+</body>
+<script src="./js/login.js"></script>
+</html>
