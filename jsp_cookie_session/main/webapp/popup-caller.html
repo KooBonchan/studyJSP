@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cookie in JS</title>
+</head>
+<body>
+<button onclick="resetCookie()">Reset Cookie</button>
+</body>
+<script>
+window.onload = function () {
+	let showPopup = parsePopupCookie();
+    if(showPopup){
+        window.open("popup.html", "pop",
+        "width=400, height=500, resizable=0,status=no, scrollbars=yes, menubar=no");
+    }
+}
+
+function parsePopupCookie() {
+    var result = true;
+    if(document.cookie != ""){
+        cookies = document.cookie.split(";");
+        for(let cookie of cookies){
+            keyval = cookie.split("=");
+            key = keyval[0].trim();
+            value = keyval[1];
+            if(key == "showPopup" && value == "false"){
+                result = false;
+            }
+        }
+    }
+    return result;
+}
+
+function resetCookie (){
+    document.cookie = "showPopup=" + "true" + 
+        ";path=/;expires=-1";
+}
+</script>
+</html>

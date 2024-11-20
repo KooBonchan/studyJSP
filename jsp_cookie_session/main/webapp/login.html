@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet" href="./style/darkmode.css" />
+<link rel="stylesheet" href="./style/form.css" />
+</head>
+<body>
+<div style="color:red; display:none;" id="auth-error">
+Failed to login. Fix your ID and password and try again
+</div>
+	<form action="login" method="post" name="formLogin">
+		<table>
+			<thead>
+				<tr>
+					<td colspan=2>
+						<h1>Login</h1>
+					</td>
+				</tr>
+			</thead>
+			<tr>
+				<td>ID</td>
+				<td><input name="id" autocomplete="username"></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="password" name="password"
+					autocomplete="current-password"></td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<div id="button-bar">
+						<button type="submit" name="submit">Log In</button>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const error = urlParams.get('error');
+window.onload = function() {
+	if(error == 'auth-failed') {
+		document.getElementById("auth-error").display = block;
+	}
+}
+</script>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cookie in JS</title>
+</head>
+<body style="background-color: forestgreen;">
+Look, If you have one shot one opportunity, will you take it? or just miss it<p />
+Mom's spaghetti<p />Vomit<p />
+<input type="checkbox" onclick="setPopupDisabledToday(this)">Expire for one day
+</body>
+<script>
+function setPopupDisabledToday (checkbox){
+    if(checkbox.checked){
+        let expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() + 1);
+        document.cookie = "showPopup=" + "false" + 
+            ";path=/;expires=" + expireDate.toLocaleString();
+        window.close();
+    }
+}
+</script>
+</html>
