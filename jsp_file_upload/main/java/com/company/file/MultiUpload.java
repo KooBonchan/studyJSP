@@ -15,14 +15,13 @@ import jakarta.servlet.http.HttpServletResponse;
 		maxFileSize = 5 * 1024 * 1024,
 		maxRequestSize = 10 * 1024 * 1024
 		)
-@WebServlet("/file")
-public class FileUpload extends HttpServlet {
+@WebServlet("/multi-file")
+public class MultiUpload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	FileDAO fileDAO;
 	{
 		fileDAO = new FileDAO();
 	}
-	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -30,16 +29,22 @@ public class FileUpload extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			String saveDirectory = getServletContext().getRealPath("/uploads");
-			String original = FileUtil.uploadFile(request, saveDirectory);
-			String saved = FileUtil.renameFile(saveDirectory, original);
-			
-			String title = request.getParameter("title");
-			FileVO fileVO = new FileVO();
-			fileVO.setTitle(title);
-			fileVO.setOriginal(original);
-			fileVO.setSaved(saved);
-			
-			fileDAO.createFile(fileVO);
+			File dir = new File(saveDirectory);
+			if( ! dir.exists()) {
+				dir.mkdir();
+			}
+			var filenames = FileUtil.multiFile(request, saveDirectory);
+			for(String original : filenames) {
+				String saved = FileUtil.renameFile(saveDirectory, original);
+				
+				String title = request.getParameter("title");
+				FileVO fileVO = new FileVO();
+				fileVO.setTitle(title);
+				fileVO.setOriginal(original);
+				fileVO.setSaved(saved);
+				
+				fileDAO.createFile(fileVO);
+			}
 			response.sendRedirect("file-list");
 		} catch(Exception e) {
 			System.err.println("Error: " + e.getMessage());

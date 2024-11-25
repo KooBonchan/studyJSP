@@ -27,14 +27,14 @@ ul li {
 <h2>Upload your file, mainly image</h2>
 <span style="color:red;">${errorMessage}</span>
 <form name="form-file" method="post" enctype="multipart/form-data"
-	action="file" onsubmit="return validate(this);">
+	action="multi-file" onsubmit="return validate(this);">
 	<ul>
 	<li><input type="text" name="title" placeholder="Title"/></li>
 	<li>
 		<label for="file">File: </label>
-		<input type="file" name="file"/>
+		<input type="file" name="file" multiple/>
 	</li>
-	<li><input type="submit" value="SUBMIT" /></li>
+	<li><input type="submit" value="SUBMIT"/></li>
 	
 	</ul>
 	

@@ -72,4 +72,29 @@ public class FileDAO {
 		}
 		return files;
 	}
+	
+	public FileVO readFile(int idx) {
+		String sql = "select original, saved from image where idx = ?";
+		try(Connection connection = dataSource.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			)
+		{
+			preparedStatement.setInt(1,idx);
+			try(ResultSet resultSet = preparedStatement.executeQuery()){
+				if(resultSet.next()) {
+					String original = resultSet.getString("original");
+					String saved = resultSet.getString("saved");
+					
+					FileVO vo = new FileVO();
+					vo.setOriginal(original);
+					vo.setSaved(saved);
+					return vo;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

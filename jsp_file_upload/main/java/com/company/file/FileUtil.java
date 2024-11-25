@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,10 +21,24 @@ import jakarta.servlet.http.Part;
  *
  */
 public class FileUtil {
+	public static List<String> multiFile(HttpServletRequest request, String directory) throws IOException, ServletException{
+		List<String> files = new ArrayList<>();
+		Collection<Part> parts = request.getParts();
+		for(var part : parts) {
+			if(!part.getName().equals("file")) continue;
+			String filename = part.getHeader("content-disposition")
+					.split("filename=")[1]
+					.trim().replace("\"", "");
+			if( ! filename.isBlank()) {
+				part.write(directory + File.separator + filename);
+			}
+			files.add(filename);
+		}
+		return files;
+	}
+	
 	public static String uploadFile(HttpServletRequest request, String saveDirectory) throws IOException, ServletException{
-		//side effect: saves file
 		Part part = request.getPart("file");
-		System.out.println(part.getHeader("content-disposition"));
 		String[] rawFilenames = part
 					.getHeader("content-disposition")
 					.split("filename=");
@@ -33,8 +50,8 @@ public class FileUtil {
 	}
 	
 	public static String renameFile(String directory, String filename) {
-		//side effect: requires existing file -- expected with its name
-		//to be pure: filename, time as parameter, extract filesys as separate method
+		// extract new-filename-creation logic from file renaming
+		// since filename logic is business logic
 		String format = filename.substring(filename.lastIndexOf("."));
 		String now = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))
 				+ String.format("-%d", LocalTime.now().toNanoOfDay() / 1000);

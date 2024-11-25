@@ -40,6 +40,7 @@ thead tr td{
 <td>Filename</td>
 <td>image</td>
 <td>Post date</td>
+<td>Download</td>
 </tr>
 </thead>
 <c:forEach var="file" items="${files }">
@@ -50,10 +51,12 @@ thead tr td{
 	<td>
 	<img src="uploads/${file.saved}" alt="${file.saved}"></td>
 	<td>${file.postdate}</td>
+	<td><a href="file-download?idx=${file.idx}">[Download]</a></td>
 </tr>
 </c:forEach>
 
 </table>
-<a href="file-upload.jsp">Upload File</a>
+<a href="file-upload.jsp">Upload File</a><br>
+<a href="multi-upload.jsp">Upload Multiple Files</a><br>
 </body>
 </html>
