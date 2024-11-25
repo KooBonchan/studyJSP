@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet" href="./style/darkmode.css" />
+<link rel="stylesheet" href="./style/form.css" />
+</head>
+<body>
+	<form action="login" method="post" name="formLogin">
+		<table>
+			<thead>
+				<tr>
+					<td colspan=2>
+						<h1>Login</h1>
+					</td>
+				</tr>
+			</thead>
+			<tr>
+				<td>ID</td>
+				<td><input name="id" autocomplete="username"></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="password" name="password"
+					autocomplete="current-password"></td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<div id="button-bar">
+						<button type="submit" name="submit">Log In</button>
+						<button type="button" name="signup">Sign up</button>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+<script>
+const signupButton = document.formLogin.signup;
+signupButton.addEventListener("click", function(e) {
+	location.href = "signup.html";
+})
+</script>
+</html>
